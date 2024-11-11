@@ -3,13 +3,17 @@ runtime: yaml
 resources:
   lb:
     type: awsx:lb:ApplicationLoadBalancer
+    properties:
+      defaultTargetGroupPort: ${port}
   cluster:
     type: aws:ecs:Cluster
+  
   service:
     type: awsx:ecs:FargateService
     properties:
       cluster: ${cluster.arn}
       assignPublicIp: true
+      
       taskDefinitionArgs:
         container:
           name: service
