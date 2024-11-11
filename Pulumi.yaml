@@ -1,13 +1,27 @@
 name: actions-aws-webserver
 runtime: yaml
+config:
+  cpu:
+    value: 256
+    secret: false
+  memory:
+    value: 512
+    secret: false
+  image: 
+    value: grafana/grafana
+    secret: false
+  port: 
+    value: 3000
+    secret: false
 resources:
   lb:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
-      defaultTargetGroupPort: ${port}
+      
       defaultTargetGroup:
         connectionTermination: false
         deregistrationDelay: 0
+        port: ${port}
         healthCheck:
             enabled: true
             healthyThreshold: 5
