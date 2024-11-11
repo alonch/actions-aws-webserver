@@ -8,10 +8,16 @@ config:
     value: 512
     secret: false
   image: 
-    value: grafana/grafana
+    value: nginx:latest
     secret: false
   port: 
-    value: 3000
+    value: 80
+    secret: false
+  healthCheckResponse:
+    value: "200"
+    secret: false
+  healthCheckPath:
+    value: /
     secret: false
 resources:
   lb:
@@ -26,8 +32,8 @@ resources:
             enabled: true
             healthyThreshold: 5
             interval: 30
-            matcher: "200"
-            path: /api/health
+            matcher: ${healthCheckResponse}
+            path: ${healthCheckPath}
   cluster:
     type: aws:ecs:Cluster
   
