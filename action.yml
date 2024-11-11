@@ -65,9 +65,6 @@ runs:
       id: pulumi
       uses: pulumi/actions@v6
       env: 
-        VAR_MEMORY: ${{ inputs.memory }}
-        VAR_CPU: ${{ inputs.cpu }}
-        VAR_CONTAINER_IMAGE: ${{ inputs.container-image }}
         PULUMI_CONFIG_PASSPHRASE: ""
       with:
         command: up

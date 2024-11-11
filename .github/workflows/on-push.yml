@@ -23,6 +23,8 @@ jobs:
       - uses: alonch/actions-aws-webserver@main
         with: 
           name: actions-aws-demo-webserver
+          container-image: grafana/grafana
+          port: 3000
 
               
       
