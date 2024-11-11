@@ -68,7 +68,7 @@ runs:
         PULUMI_CONFIG_PASSPHRASE: ""
       with:
         ## apply => up; destroy => down or else preview
-        command: ${{ inputs.command == 'apply' && 'up' || (inputs.command == 'destroy' && 'down') || 'preview' }}
+        command: ${{ inputs.action == 'apply' && 'up' || (inputs.action == 'destroy' && 'down') || 'preview' }}
         stack-name: ${{ inputs.name }}-webserver
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
