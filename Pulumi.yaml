@@ -19,6 +19,7 @@ resources:
           essential: true
           portMappings:
             - containerPort: ${port}
+              hostPort: ${port}
               targetGroup: ${lb.defaultTargetGroup}
 outputs:
   url: http://${lb.loadBalancer.dnsName}
