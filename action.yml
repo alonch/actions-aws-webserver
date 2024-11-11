@@ -75,7 +75,7 @@ runs:
         work-dir: ${{ github.action_path }}
         upsert: true
         config-map: > 
-          {"container:image": {value: ${{ inputs.container-image }}, secret: false}, "container:cpu": {value: ${{ inputs.cpu }}, secret: false}, "container:memory": {value: ${{ inputs.memory }}, secret: false}}
+          {"container:image": {value: "${{ inputs.container-image }}", secret: false}, "container:cpu": {value: "${{ inputs.cpu }}", secret: false}, "container:memory": {value: "${{ inputs.memory }}", secret: false}}
     - name: set outputs
       id: set-outputs
       if: ${{ inputs.action == 'apply' }}
