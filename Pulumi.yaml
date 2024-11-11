@@ -1,14 +1,6 @@
 name: actions-aws-webserver
 runtime: yaml
 
-config:
-  container:image:
-    type: string
-  container:cpu:
-    default: ".25"
-  container:memory:
-    default: ".5"
-
 resources:
   lb:
     type: awsx:lb:ApplicationLoadBalancer
