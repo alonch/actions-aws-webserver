@@ -1,0 +1,28 @@
+name: demo
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    permissions: 
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          role-session-name: ${{ github.actor }}
+      - uses: alonch/actions-aws-backend-setup@main
+        id: backend
+        with: 
+          instance: demo-webserver
+      - uses: alonch/actions-aws-webserver@main
+        with: 
+          name: actions-aws-demo-webserver
+
+              
+      

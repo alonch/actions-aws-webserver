@@ -1,0 +1,24 @@
+name: actions-aws-webserver
+runtime: yaml
+resources:
+  lb:
+    type: awsx:lb:ApplicationLoadBalancer
+  cluster:
+    type: aws:ecs:Cluster
+  service:
+    type: awsx:ecs:FargateService
+    properties:
+      cluster: ${cluster.arn}
+      assignPublicIp: true
+      taskDefinitionArgs:
+        container:
+          name: service
+          image: ${env:VAR_CONTAINER_IMAGE}
+          cpu: ${env:VAR_CPU}
+          memory: ${env:VAR_MEMORY}
+          essential: true
+          portMappings:
+            - containerPort: 80
+              targetGroup: ${lb.defaultTargetGroup}
+outputs:
+  url: http://${lb.loadBalancer.dnsName}
