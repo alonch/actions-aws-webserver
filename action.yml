@@ -74,7 +74,7 @@ runs:
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
         upsert: true
-        config-map: "{\"container:image\": {value: \"${{ inputs.container-image }}\", secret: false}, \"container:cpu\": {value: \"${{ inputs.cpu }}\", secret: false}, \"container:memory\": {value: \"${{ inputs.memory }}\", secret: false}}"
+        config-map: "{\"image\": {value: \"${{ inputs.container-image }}\", secret: false}, \"cpu\": {value: \"${{ inputs.cpu }}\", secret: false}, \"memory\": {value: \"${{ inputs.memory }}\", secret: false}}"
     - name: set outputs
       id: set-outputs
       if: ${{ inputs.action == 'apply' }}

@@ -2,11 +2,11 @@ name: actions-aws-webserver
 runtime: yaml
 
 config:
-  container:image:
+  image:
     type: string
-  container:cpu:
+  cpu:
     type: integer
-  container:memory:
+  memory:
     type: integer
 
 resources:
@@ -22,9 +22,9 @@ resources:
       taskDefinitionArgs:
         container:
           name: service
-          image: ${container:image}
-          cpu: ${container:cpu}
-          memory: ${container:memory}
+          image: ${image}
+          cpu: ${cpu}
+          memory: ${memory}
           essential: true
           portMappings:
             - containerPort: 80
