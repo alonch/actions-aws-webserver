@@ -61,7 +61,7 @@ runs:
         JSON=$(yq -o=json '. // {}' data.yaml | jq -c '.')
         echo "json=$JSON" >> $GITHUB_OUTPUT
     - name: Applying infrastructure 🚀
-      uses: pulumi/actions@v4
+      uses: pulumi/actions@v6
       
       env: 
         VAR_MEMORY: ${{ inputs.memory }}
@@ -74,8 +74,12 @@ runs:
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
         upsert: true
-        
-    
+        config-extra: |
+          {
+            container:image: {value: ${{ inputs.container-image }}, secret: false}
+            container:cpu: {value: ${{ inputs.cpu }}, secret: false}
+            container:memory: {value: ${{ inputs.memory }}, secret: false}
+          }
     - name: set outputs
       id: set-outputs
       if: ${{ inputs.action == 'apply' }}

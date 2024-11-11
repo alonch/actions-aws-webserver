@@ -1,5 +1,14 @@
 name: actions-aws-webserver
 runtime: yaml
+
+config:
+  container:image:
+    type: string
+  container:cpu:
+    default: ".25"
+  container:memory:
+    default: ".5"
+
 resources:
   lb:
     type: awsx:lb:ApplicationLoadBalancer
@@ -13,9 +22,9 @@ resources:
       taskDefinitionArgs:
         container:
           name: service
-          image: ${env:VAR_CONTAINER_IMAGE}
-          cpu: ${env:VAR_CPU}
-          memory: ${env:VAR_MEMORY}
+          image: ${container:image}
+          cpu: ${container:cpu}
+          memory: ${container:memory}
           essential: true
           portMappings:
             - containerPort: 80
