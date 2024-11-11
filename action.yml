@@ -61,16 +61,16 @@ runs:
         JSON=$(yq -o=json '. // {}' data.yaml | jq -c '.')
         echo "json=$JSON" >> $GITHUB_OUTPUT
     - name: Applying infrastructure 🚀
-        uses: pulumi/actions@v4
-        working-directory: ${{ github.action_path }}
-        env: 
-          VAR_MEMORY: ${{ inputs.memory }}
-          VAR_CPU: ${{ inputs.cpu }}
-          VAR_CONTAINER_IMAGE: ${{ inputs.container-image }}
-        with:
-          command: up
-          stack-name: ${{ inputs.name }}-webserver
-          cloud-url: s3://${{ env.TF_BACKEND_s3 }}
+      uses: pulumi/actions@v4
+      working-directory: ${{ github.action_path }}
+      env: 
+        VAR_MEMORY: ${{ inputs.memory }}
+        VAR_CPU: ${{ inputs.cpu }}
+        VAR_CONTAINER_IMAGE: ${{ inputs.container-image }}
+      with:
+        command: up
+        stack-name: ${{ inputs.name }}-webserver
+        cloud-url: s3://${{ env.TF_BACKEND_s3 }}
     
     - name: set outputs
       id: set-outputs
