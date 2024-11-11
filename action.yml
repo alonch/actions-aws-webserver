@@ -67,13 +67,14 @@ runs:
         VAR_MEMORY: ${{ inputs.memory }}
         VAR_CPU: ${{ inputs.cpu }}
         VAR_CONTAINER_IMAGE: ${{ inputs.container-image }}
+        PULUMI_CONFIG_PASSPHRASE: ""
       with:
         command: up
         stack-name: ${{ inputs.name }}-webserver
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
         upsert: true
-        PULUMI_CONFIG_PASSPHRASE: ""
+        
     
     - name: set outputs
       id: set-outputs
