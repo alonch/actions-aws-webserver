@@ -73,6 +73,7 @@ runs:
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
         upsert: true
+        PULUMI_CONFIG_PASSPHRASE: ""
     
     - name: set outputs
       id: set-outputs
