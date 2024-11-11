@@ -5,6 +5,15 @@ resources:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
       defaultTargetGroupPort: ${port}
+      defaultTargetGroup:
+        connectionTermination: false
+        deregistrationDelay: 0
+        healthCheck:
+            enabled: true
+            healthyThreshold: 5
+            interval: 30
+            matcher: "200"
+            path: /api/health
   cluster:
     type: aws:ecs:Cluster
   
