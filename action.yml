@@ -15,11 +15,11 @@ inputs:
   cpu: 
     description: ".25, .5, 1, 2, 4, 8, 16 in vCPU for more details (docs)[https://docs.aws.amazon.com/eks/latest/userguide/fargate-pod-configuration.html]"
     required: false
-    default: ".25"
+    default: "256"
   memory:
     description: ".5 to 120 in GB, for more details (docs)[https://docs.aws.amazon.com/eks/latest/userguide/fargate-pod-configuration.html]"
     required: false
-    default: ".5"
+    default: "512"
   env: 
     description: List of environment variables in YML format
     required: false

@@ -1,6 +1,6 @@
 name: actions-aws-webserver
 runtime: yaml
-configuration:
+config:
   memory:
     type: Integer
   cpu:
