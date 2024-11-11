@@ -72,6 +72,7 @@ runs:
         stack-name: ${{ inputs.name }}-webserver
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
         work-dir: ${{ github.action_path }}
+        upsert: true
     
     - name: set outputs
       id: set-outputs
