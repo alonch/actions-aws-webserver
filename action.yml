@@ -62,7 +62,7 @@ runs:
         echo "json=$JSON" >> $GITHUB_OUTPUT
     - name: Applying infrastructure 🚀
       uses: pulumi/actions@v4
-      working-directory: ${{ github.action_path }}
+      
       env: 
         VAR_MEMORY: ${{ inputs.memory }}
         VAR_CPU: ${{ inputs.cpu }}
@@ -71,6 +71,7 @@ runs:
         command: up
         stack-name: ${{ inputs.name }}-webserver
         cloud-url: s3://${{ env.TF_BACKEND_s3 }}
+        work-dir: ${{ github.action_path }}
     
     - name: set outputs
       id: set-outputs
