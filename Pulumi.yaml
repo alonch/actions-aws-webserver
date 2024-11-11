@@ -1,6 +1,10 @@
 name: actions-aws-webserver
 runtime: yaml
-
+configuration:
+  memory:
+    type: Integer
+  cpu:
+    type: Integer
 resources:
   lb:
     type: awsx:lb:ApplicationLoadBalancer
