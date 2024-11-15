@@ -60,7 +60,7 @@ resources:
     type: aws:acm:CertificateValidation
     properties:
       certificateArn: ${cert.arn}
-      validationRecordFqdns: ${cert.validationOptions}
+      validationRecordFqdns: ${cert.domainValidationOptions}
   lb:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
