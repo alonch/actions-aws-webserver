@@ -25,6 +25,7 @@ jobs:
           name: actions-aws-demo-webserver
           container-image: grafana/grafana
           port: 3000
+          action: destroy
 
               
       
