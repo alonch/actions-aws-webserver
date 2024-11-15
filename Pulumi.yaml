@@ -19,11 +19,24 @@ config:
   healthCheckPath:
     value: /
     secret: false
+  dockerPath:
+    value: .
+    secret: false
 resources:
+  repo:
+    type: awsx:ecr:Repository
+    properties:
+      forceDelete: true
+
+  image:
+    type: awsx:ecr:Image
+    properties:
+      repositoryUrl: ${repo.url}
+      context: ${dockerPath}
+      platform: linux/amd64 
   lb:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
-      
       defaultTargetGroup:
         connectionTermination: false
         deregistrationDelay: 0
@@ -46,7 +59,8 @@ resources:
       taskDefinitionArgs:
         container:
           name: service
-          image: ${image}
+          # image: ${image}
+          image: ${image.imageUri}
           cpu: ${cpu}
           memory: ${memory}
           essential: true
