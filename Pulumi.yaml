@@ -22,6 +22,19 @@ config:
   dockerPath:
     value: .
     secret: false
+  domain:
+    value: realsense.ca.
+    secret: false
+  subdomain:
+    value: my-api
+    secret: false
+# variables:
+#   hostedZone:
+#     fn::invoke:
+#       Function: aws:route53:getZone
+#       Arguments:
+#         name: realsense.ca.
+#         privateZone: false
 resources:
   repo:
     type: awsx:ecr:Repository
@@ -34,9 +47,26 @@ resources:
       repositoryUrl: ${repo.url}
       context: ${dockerPath}
       platform: linux/amd64 
+  
+  cert:
+    type: aws:acm:Certificate
+    properties:
+      domainName: ${domain}
+      validationMethod: DNS
+      validationOptions:
+        - domainName: ${domain}
+          validationDomain: ${subdomain}.${domain}
+  certValidations:
+    type: aws:acm:CertificateValidation
+    properties:
+      certificateArn: ${cert.arn}
+      validationRecordFqdns: ${cert.validationOptions}
   lb:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
+      listener:
+        certificateArn: ${cert.arn}
+        protocol: HTTPS
       defaultTargetGroup:
         connectionTermination: false
         deregistrationDelay: 0
