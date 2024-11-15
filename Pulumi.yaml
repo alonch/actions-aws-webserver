@@ -56,11 +56,11 @@ resources:
       validationOptions:
         - domainName: ${domain}
           validationDomain: ${subdomain}.${domain}
-  certValidations:
-    type: aws:acm:CertificateValidation
-    properties:
-      certificateArn: ${cert.arn}
-      validationRecordFqdns: ${cert.domainValidationOptions}
+  # certValidations:
+  #   type: aws:acm:CertificateValidation
+  #   properties:
+  #     certificateArn: ${cert.arn}
+  #     validationRecordFqdns: ${cert.domainValidationOptions}
   lb:
     type: awsx:lb:ApplicationLoadBalancer
     properties:
