@@ -28,7 +28,7 @@ resources:
     properties:
       forceDelete: true
 
-  image:
+  builder:
     type: awsx:ecr:Image
     properties:
       repositoryUrl: ${repo.url}
@@ -60,7 +60,7 @@ resources:
         container:
           name: service
           # image: ${image}
-          image: ${image.imageUri}
+          image: ${builder.imageUri}
           cpu: ${cpu}
           memory: ${memory}
           essential: true
