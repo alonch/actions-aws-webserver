@@ -51,11 +51,11 @@ resources:
   cert:
     type: aws:acm:Certificate
     properties:
-      domainName: ${domain}
+      domainName: ${subdomain}.${domain}
       validationMethod: DNS
       validationOptions:
-        - domainName: ${domain}
-          validationDomain: ${subdomain}.${domain}
+        - domainName: ${subdomain}.${domain}
+          validationDomain: ${domain}
   # certValidations:
   #   type: aws:acm:CertificateValidation
   #   properties:
