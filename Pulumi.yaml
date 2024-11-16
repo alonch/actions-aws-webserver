@@ -85,7 +85,6 @@ resources:
       zoneId: ${hostedZone.zoneId}
       name: ${subdomain}.${domain}
       type: A
-      ttl: 300
       aliases:
         - name: ${lb.loadBalancer.dnsName}
           zoneId: ${lb.loadBalancer.zoneId}
