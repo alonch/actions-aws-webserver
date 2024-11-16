@@ -25,7 +25,7 @@ jobs:
           name: actions-aws-demo-webserver
           container-image: grafana/grafana
           port: 8080
-          action: apply
+          action: destroy
           docker-path: samples/api
 
 

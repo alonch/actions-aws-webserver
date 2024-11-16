@@ -31,8 +31,8 @@ config:
 variables:
   hostedZone:
     fn::invoke:
-      Function: aws:route53:getZone
-      Arguments:
+      function: aws:route53:getZone
+      arguments:
         name: ${domain}.
         privateZone: false
 resources:
