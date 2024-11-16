@@ -56,6 +56,8 @@ resources:
       validationOptions:
         - domainName: ${subdomain}.${domain}
           validationDomain: ${domain}
+    options:
+      retainOnDelete: true
   # certValidations:
   #   type: aws:acm:CertificateValidation
   #   properties:
@@ -85,7 +87,7 @@ resources:
       type: A
       ttl: 300
       records:
-        - ${lb.publicIp}
+        - ${lb.loadBalancer.publicIp}
   cluster:
     type: aws:ecs:Cluster
   
