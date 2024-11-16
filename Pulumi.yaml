@@ -23,7 +23,7 @@ config:
     value: .
     secret: false
   domain:
-    value: realsense.ca.
+    value: realsense.ca
     secret: false
   subdomain:
     value: my-api
