@@ -87,7 +87,7 @@ resources:
       type: A
       ttl: 300
       records:
-        - ${lb.loadBalancer.publicIp}
+        - ${lb.loadBalancer.dnsName}
   cluster:
     type: aws:ecs:Cluster
   
