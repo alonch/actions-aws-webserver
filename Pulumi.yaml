@@ -28,13 +28,13 @@ config:
   subdomain:
     value: my-api
     secret: false
-# variables:
-#   hostedZone:
-#     fn::invoke:
-#       Function: aws:route53:getZone
-#       Arguments:
-#         name: realsense.ca.
-#         privateZone: false
+variables:
+  hostedZone:
+    fn::invoke:
+      Function: aws:route53:getZone
+      Arguments:
+        name: ${domain}.
+        privateZone: false
 resources:
   repo:
     type: awsx:ecr:Repository
@@ -77,6 +77,15 @@ resources:
             interval: 30
             matcher: ${healthCheckResponse}
             path: ${healthCheckPath}
+  lbRecord:
+    type: aws:route53:Record
+    properties:
+      zoneId: ${hostedZone.zoneId}
+      name: ${subdomain}.${domain}
+      type: A
+      ttl: 300
+      records:
+        - ${lb.publicIp}
   cluster:
     type: aws:ecs:Cluster
   
