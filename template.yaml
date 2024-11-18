@@ -334,6 +334,18 @@ Resources:
         DNSName: !GetAtt UserPoolDomain.CloudFrontDistribution
         EvaluateTargetHealth: false
 
+## Database
+  # ServerlessV2Cluster:
+  #   Type: 'AWS::RDS::DBCluster'
+  #   DeletionPolicy: Delete
+  #   Properties:
+  #     Engine: aurora-mysql
+  #     MasterUsername: admin
+  #     MasterUserPassword: my_super_secure_password
+  #     ServerlessV2ScalingConfiguration:
+  #       MinCapacity: 0.5
+  #       MaxCapacity: 2
+
 ## Static Website
   S3BucketRoot:
     Type: AWS::S3::Bucket
