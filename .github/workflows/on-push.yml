@@ -21,8 +21,8 @@ jobs:
           name: actions-aws-demo-webserver
           port: 8080
           # action: destroy
-          docker-path: samples/api/
-          public-path: samples/api/public/
+          docker-path: samples/app/
+          public-path: samples/app/public/
 
 
               

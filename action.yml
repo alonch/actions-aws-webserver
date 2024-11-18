@@ -67,7 +67,7 @@ runs:
     - uses: docker/build-push-action@v5
       with:
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}
-        context: "{{defaultContext}}:${{ inputs.docker-path }}"
+        context: ${{ github.workspace }}/${{ inputs.docker-path }}
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
