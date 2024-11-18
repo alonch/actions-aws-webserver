@@ -19,7 +19,7 @@ jobs:
       - uses: alonch/actions-aws-webserver@main
         with: 
           name: webserver
-          port: 3000
+          port: 8080
           # action: destroy
           docker-path: samples/app/
           public-path: samples/app/public/

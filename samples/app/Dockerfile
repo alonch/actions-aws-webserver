@@ -19,7 +19,7 @@ RUN adduser \
     appuser
 USER appuser
 
-EXPOSE 3000
+EXPOSE 8080
 
 COPY --from=build /usr/src/app/app-standalone.jar ./app-standalone.jar
 CMD ["java", "-jar", "app-standalone.jar"]
