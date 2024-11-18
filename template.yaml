@@ -418,7 +418,7 @@ Resources:
   Route53RecordSetGroup:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneName: !Sub '${DomainName}.'
+      HostedZoneId: !Ref DomainHostedZoneId
       RecordSets:
         - Name: !Sub '${DomainName}'
           Type: 'A'
