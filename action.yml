@@ -68,7 +68,7 @@ runs:
       uses: docker/setup-qemu-action@v3
     - uses: docker/build-push-action@v5
       with:
-        # platforms: linux/arm64
+        platforms: linux/arm64
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}-${{ github.run_attempt	}}
         context: ${{ github.workspace }}/${{ inputs.docker-path }}
         push: true
@@ -87,7 +87,7 @@ runs:
         VPC="vpc-0cb5da4d69d6a8435" \
         SubnetA="subnet-008fe9233fbd5a2b8" \
         SubnetB="subnet-02ed2550abef68d3a" \
-        Image="${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}" \
+        Image="${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}-${{ github.run_attempt	}}" \
         ContainerPort=${{ inputs.port }} \
         LoadBalancerPort="443" \
         HealthCheckPath="/" \
