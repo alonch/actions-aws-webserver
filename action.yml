@@ -81,14 +81,14 @@ runs:
         --no-confirm-changeset \
         --no-fail-on-empty-changeset \
         --parameter-overrides \
-        VPC="vpc-0cb5da4d69d6a8435"  \
+        VPC="vpc-0cb5da4d69d6a8435" \
         SubnetA="subnet-008fe9233fbd5a2b8" \
-        SubnetB="subnet-02ed2550abef68d3a"  \
+        SubnetB="subnet-02ed2550abef68d3a" \
         Image="${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}" \
-        ContainerPort=${{ inputs.port }}  \
-        LoadBalancerPort="443"  \
-        HealthCheckPath="/"  \
-        MinContainers="1"  \
+        ContainerPort=${{ inputs.port }} \
+        LoadBalancerPort="443" \
+        HealthCheckPath="/" \
+        MinContainers="1" \
         MaxContainers="3" \
         AutoScalingTargetValue="90" \
         DomainName="gha.dev.realsense.ca" \

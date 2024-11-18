@@ -464,30 +464,3 @@ Outputs:
   Bucket:
     Description: S3 Bucket
     Value: !Ref S3BucketRoot
-  CloudFrontDistribution:
-    Description: CloudFront Distribution ID
-    Value: !Ref CloudFrontDistribution
-  Certificate:
-    Description: Certificate ARN
-    Value: !Ref Certificate
-  CertificateDNSRecord:
-    Description: Certificate DNS Record
-    Value: !GetAtt 'DNSRecord'
-  CertificateDNSValidationCNAME:
-    Description: Certificate DNS Validation CNAME
-    Value: !GetAtt 'Certificate.DomainValidationOptions[0].ResourceRecord.Name'
-  CertificateDNSValidationValue:
-    Description: Certificate DNS Validation Value
-    Value: !GetAtt 'Certificate.DomainValidationOptions[0].ResourceRecord.Value'
-  CertificateDNSValidationHostedZoneID:
-    Description: Certificate DNS Validation Hosted Zone ID
-    Value: !GetAtt 'Certificate.DomainValidationOptions[0].ResourceRecord.HostedZoneId'
-  UserPool:
-    Description: UserPool ID
-    Value: !Ref UserPool
-  UserPoolClient:
-    Description: UserPoolClient ID
-    Value: !Ref UserPoolClient
-  UserPoolDomain:
-    Description: UserPoolDomain URL
-    Value: !GetAtt 'UserPoolDomain.CloudFrontDistribution'
