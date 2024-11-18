@@ -56,8 +56,8 @@ Resources:
       Family: !Sub "${AWS::StackName}"
       # awsvpc is required for Fargate
       NetworkMode: awsvpc
-      RuntimePlatform:
-        CpuArchitecture: ARM64
+      # RuntimePlatform:
+      #   CpuArchitecture: ARM64
       RequiresCompatibilities:
         - FARGATE
       # 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
