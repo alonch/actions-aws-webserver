@@ -36,6 +36,10 @@ inputs:
     description: full container image name
     required: true
     default: "nginx:latest"
+  public-path:
+    description: "Public path to the container"
+    required: false
+    default: "public/"
   port:
     description: "Port to expose"
     required: false
@@ -63,7 +67,7 @@ runs:
     - uses: docker/build-push-action@v5
       with:
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}
-        context: ${{ github.workspace }}/${{ inputs.docker-path }}
+        context: "{{defaultContext}}:${{ inputs.docker-path }}"
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
