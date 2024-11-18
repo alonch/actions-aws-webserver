@@ -85,15 +85,15 @@ runs:
         AutoScalingTargetValue="90" \
         DomainName="gha.dev.realsense.ca" \
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
-    - name: query s3 bucket
-      run: |
-        aws cloudformation \
-        --region us-east-1 describe-stacks \
-        --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
-        --query 'Stacks[0].Outputs[?OutputKey==`DbUrl`].OutputValue' \
-        --output text
 
     - name: upload files
-      run: aws s3 cp ${{ inputs.public-path }} s3://dev.realsense.ca --recursive
       shell: bash
+      run: |
+        BUCKET=$(aws cloudformation \
+          --region us-east-1 describe-stacks \
+          --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
+          --query 'Stacks[0].Outputs[?OutputKey==`Bucket`].OutputValue' \
+          --output text)
+        aws s3 sync ${{ inputs.public-path }} s3://${BUCKET} --delete
+      
         
