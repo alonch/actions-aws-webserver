@@ -47,57 +47,53 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: parse env
-      shell: bash
-      id: parse-input-env
+    - name: create ecr registry
       run: |
-        cat <<-EOF > data.yaml
-        ${{ inputs.env }}
-        EOF
-        JSON=$(yq -o=json '. // {}' data.yaml | jq -c '.')
-        echo "json=$JSON" >> $GITHUB_OUTPUT
-    - name: parse permissions
+        aws ecr create-repository \
+        --repository-name ${{ inputs.name }}-${{ github.repository_id }} \
+        --image-tag-mutability IMMUTABLE \
+        --image-scanning-configuration scanOnPush=true
+      continue-on-error: true
       shell: bash
-      id: parse-input-permissions
-      run: |
-        cat <<-EOF > data.yaml
-        ${{ inputs.permissions }}
-        EOF
-        JSON=$(yq -o=json '. // {}' data.yaml | jq -c '.')
-        echo "json=$JSON" >> $GITHUB_OUTPUT
-    - name: Applying infrastructure 🚀
-      id: pulumi
-      uses: pulumi/actions@v6
-      env: 
-        PULUMI_CONFIG_PASSPHRASE: ""
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+    - uses: docker/build-push-action@v5
       with:
-        ## apply => up; destroy => down or else preview
-        command: ${{ inputs.action == 'apply' && 'up' || (inputs.action == 'destroy' && 'destroy') || 'preview' }}
-        stack-name: ${{ inputs.name }}-webserver
-        cloud-url: s3://${{ env.TF_BACKEND_s3 }}
-        work-dir: ${{ github.action_path }}
-        upsert: true
-        config-map: |
-          {
-            "image": {
-              value: "${{ inputs.container-image }}", 
-              secret: false
-            }, 
-            "cpu": {
-              value: ${{ inputs.cpu }}, 
-              secret: false
-            }, 
-            "memory": {
-              value: ${{ inputs.memory }}, 
-              secret: false
-            },
-            "port": {
-              value: ${{ inputs.port }},
-              secret: false
-            },
-            "dockerPath": {
-              value: "${{ inputs.docker-path }}",
-              secret: false
-            }
-          }
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}
+        context: ${{ inputs.docker-path }}
+        push: true
+    - name: Applying infrastructure 🚀
+      shell: bash
+      run: |
+        sam build
+        sam deploy --resolve-s3 true \
+        --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
+        --capabilities CAPABILITY_IAM \
+        --no-confirm-changeset \
+        --no-fail-on-empty-changeset \
+        --parameter-overrides \
+        VPC="vpc-0cb5da4d69d6a8435"  \
+        SubnetA="subnet-008fe9233fbd5a2b8" \
+        SubnetB="subnet-02ed2550abef68d3a"  \
+        Image="${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}" \
+        ContainerPort=${{ inputs.port }}  \
+        LoadBalancerPort="443"  \
+        HealthCheckPath="/"  \
+        MinContainers="1"  \
+        MaxContainers="3" \
+        AutoScalingTargetValue="90" \
+        DomainName="gha.dev.realsense.ca" \
+        DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
+    - name: query s3 bucket
+      run: |
+        aws cloudformation \
+        --region us-east-1 describe-stacks \
+        --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
+        --query 'Stacks[0].Outputs[?OutputKey==`DbUrl`].OutputValue' \
+        --output text
+
+    - name: upload files
+      run: aws s3 cp ${{ inputs.public-path }} s3://dev.realsense.ca --recursive
+      shell: bash
         

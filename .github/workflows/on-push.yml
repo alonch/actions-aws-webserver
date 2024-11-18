@@ -16,16 +16,11 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.ROLE_ARN }}
           role-session-name: ${{ github.actor }}
-      - uses: alonch/actions-aws-backend-setup@main
-        id: backend
-        with: 
-          instance: demo-webserver
       - uses: alonch/actions-aws-webserver@main
         with: 
           name: actions-aws-demo-webserver
-          container-image: grafana/grafana
           port: 8080
-          action: destroy
+          # action: destroy
           docker-path: samples/api
 
 

@@ -1,0 +1,24 @@
+realsense-development:
+  deploy:
+    parameters:
+      stack_name: actions-aws-webserver-local
+      resolve_s3: true
+      s3_prefix: actions-aws-webserver-local
+      region: us-east-1
+      confirm_changeset: false
+      capabilities: CAPABILITY_IAM
+      parameter_overrides: 
+        - VPC="vpc-0cb5da4d69d6a8435" 
+        - SubnetA="subnet-008fe9233fbd5a2b8"
+        - SubnetB="subnet-02ed2550abef68d3a" 
+        - Image="654654379552.dkr.ecr.us-east-1.amazonaws.com/actions-aws-webserver-local:1"
+        - ContainerPort="8080" 
+        - LoadBalancerPort="443" 
+        - HealthCheckPath="/" 
+        - MinContainers="1" 
+        - MaxContainers="3"
+        - AutoScalingTargetValue="90"
+        - DomainName="dev.realsense.ca"
+      image_repositories: []
+version: 0.1
+
