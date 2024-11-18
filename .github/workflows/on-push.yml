@@ -18,7 +18,7 @@ jobs:
           role-session-name: ${{ github.actor }}
       - uses: alonch/actions-aws-webserver@main
         with: 
-          name: actions-aws-demo-webserver
+          name: webserver
           port: 8080
           # action: destroy
           docker-path: samples/app/
