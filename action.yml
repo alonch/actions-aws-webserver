@@ -78,7 +78,7 @@ runs:
       shell: bash
       run: |
         sam build
-        sam ${{ inputs.action=="destroy" && "destroy" || "deploy" }} \
+        sam ${{ inputs.action=='destroy' && 'destroy' || 'deploy' }} \
         --resolve-s3 true \
         --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
         --capabilities CAPABILITY_IAM \
