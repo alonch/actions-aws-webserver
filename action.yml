@@ -80,7 +80,7 @@ runs:
       run: |
         sam build
         sam delete \
-        --region us-east-1 \
+        --no-confirm-changeset \
         --stack-name ${{ inputs.name }}-${{ github.repository_id }}
 
     - name: Applying infrastructure 🚀
