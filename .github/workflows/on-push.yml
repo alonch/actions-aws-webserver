@@ -20,7 +20,7 @@ jobs:
         with: 
           name: webserver
           port: 8080 
-          # action: destroy
+          action: destroy
           docker-path: samples/app/
           public-path: samples/app/public/
 
