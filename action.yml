@@ -80,7 +80,7 @@ runs:
       run: |
         sam build
         sam delete \
-        --no-confirm-changeset \
+        --no-prompts \
         --stack-name ${{ inputs.name }}-${{ github.repository_id }}
 
     - name: Applying infrastructure 🚀
