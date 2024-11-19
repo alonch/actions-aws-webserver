@@ -75,11 +75,11 @@ runs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: Destroy infrastructure
-      if: ${{ inputs.action=="delete" }}
+      if: ${{ inputs.action=='delete' }}
       shell: bash
       run: sam delete --stack-name ${{ inputs.name }}-${{ github.repository_id }}
     - name: Applying infrastructure 🚀
-      if: ${{ inputs.action=="deploy" }}
+      if: ${{ inputs.action=='deploy' }}
       shell: bash
       run: |
         sam build
