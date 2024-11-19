@@ -77,7 +77,12 @@ runs:
     - name: Destroy infrastructure
       if: ${{ inputs.action=='delete' }}
       shell: bash
-      run: sam delete --stack-name ${{ inputs.name }}-${{ github.repository_id }}
+      run: |
+        sam build
+        sam delete \
+        --region us-east-1 \
+        --stack-name ${{ inputs.name }}-${{ github.repository_id }}
+
     - name: Applying infrastructure 🚀
       if: ${{ inputs.action=='deploy' }}
       shell: bash
