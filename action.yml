@@ -2,9 +2,9 @@ name: 'Actions AWS WebServer'
 description: 'Provision and AWS infra to host a webserver'
 inputs:
   action: 
-    description: "Desire outcome: apply, plan or destroy"
+    description: "Desire outcome: deploy or delete"
     required: false
-    default: "apply"
+    default: "deploy"
   name:
     description: Function name
     required: true
@@ -78,7 +78,7 @@ runs:
       shell: bash
       run: |
         sam build
-        sam ${{ inputs.action=='destroy' && 'destroy' || 'deploy' }} \
+        sam ${{ inputs.action }} \
         --resolve-s3 true \
         --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
         --capabilities CAPABILITY_IAM \
