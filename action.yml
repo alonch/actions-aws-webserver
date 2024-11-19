@@ -74,11 +74,16 @@ runs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    - name: Destroy infrastructure
+      if: ${{ inputs.action=="delete" }}
+      shell: bash
+      run: sam delete --stack-name ${{ inputs.name }}-${{ github.repository_id }}
     - name: Applying infrastructure 🚀
+      if: ${{ inputs.action=="deploy" }}
       shell: bash
       run: |
         sam build
-        sam ${{ inputs.action }} \
+        sam deploy \
         --resolve-s3 true \
         --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
         --capabilities CAPABILITY_IAM \
