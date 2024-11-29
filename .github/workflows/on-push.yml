@@ -19,11 +19,13 @@ jobs:
       - uses: alonch/actions-aws-image@main
         id: image
         with: 
+          name: webserver
           docker-path: samples/app/
       - uses: alonch/actions-aws-webserver@main
         with: 
           name: webserver
           port: 8080 
+          # action: delete
           container-image: ${steps.image.tag}
           public-path: samples/app/public/
 
