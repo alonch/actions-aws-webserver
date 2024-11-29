@@ -25,17 +25,12 @@ inputs:
     required: false
     default: |
       CREATE_BY: alonch/actions-aws-function-node
-  docker-path:
-    description: "Path to Dockerfile"
-    required: false
-    default: "./"
   permissions:
     description: "List of permissions following Github standard of service: read or write. In YML format"
     default: ""
   container-image:
     description: full container image name
     required: true
-    default: "nginx:latest"
   public-path:
     description: "Public path to the container"
     required: false
@@ -51,29 +46,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: create ecr registry
-      run: |
-        aws ecr create-repository \
-        --repository-name ${{ inputs.name }}-${{ github.repository_id }} \
-        --image-tag-mutability IMMUTABLE \
-        --image-scanning-configuration scanOnPush=true
-      continue-on-error: true
-      shell: bash
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-    - uses: docker/build-push-action@v5
-      with:
-        platforms: linux/arm64
-        tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}-${{ github.run_attempt	}}
-        context: ${{ github.workspace }}/${{ inputs.docker-path }}
-        push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
     - name: Destroy infrastructure
       if: ${{ inputs.action=='delete' }}
       shell: bash
@@ -98,7 +70,7 @@ runs:
         VPC="vpc-0cb5da4d69d6a8435" \
         SubnetA="subnet-008fe9233fbd5a2b8" \
         SubnetB="subnet-02ed2550abef68d3a" \
-        Image="${{ steps.login-ecr.outputs.registry }}/${{ inputs.name }}-${{ github.repository_id }}:${{ github.sha }}-${{ github.run_attempt	}}" \
+        Image="${{ inputs.container-image }}" \
         ContainerPort=${{ inputs.port }} \
         LoadBalancerPort="443" \
         HealthCheckPath="/" \
