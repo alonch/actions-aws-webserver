@@ -12,6 +12,9 @@ inputs:
     description: Run in ARM compute
     required: false
     default: "true"
+  domain:
+    description: Domain name
+    required: true
   cpu: 
     description: ".25, .5, 1, 2, 4, 8, 16 in vCPU for more details (docs)[https://docs.aws.amazon.com/eks/latest/userguide/fargate-pod-configuration.html]"
     required: false
@@ -77,7 +80,7 @@ runs:
         MinContainers="1" \
         MaxContainers="3" \
         AutoScalingTargetValue="90" \
-        DomainName="gha.dev.realsense.ca" \
+        DomainName="${{ inputs.domian }}" \
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
 
     - name: upload files
