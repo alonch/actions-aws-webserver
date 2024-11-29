@@ -80,7 +80,7 @@ runs:
         MinContainers="1" \
         MaxContainers="3" \
         AutoScalingTargetValue="90" \
-        DomainName="${{ inputs.domian }}" \
+        DomainName="${{ inputs.domain }}" \
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
 
     - name: upload files
