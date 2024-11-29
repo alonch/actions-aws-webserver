@@ -26,7 +26,7 @@ jobs:
           name: webserver
           port: 8080 
           # action: delete
-          container-image: ${{ steps.image.tag }}
+          container-image: ${{ steps.image.outputs.tag }}
           public-path: samples/app/public/
 
 
