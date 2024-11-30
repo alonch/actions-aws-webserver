@@ -7,7 +7,7 @@ jobs:
       id-token: write
     environment:
       name: PR-${{ github.event.number }}
-      url: pr-${{ github.event.number }}.dev.realsense.ca
+      url: https://pr-${{ github.event.number }}.dev.realsense.ca
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
