@@ -25,7 +25,7 @@ jobs:
         with: 
           name: webserver
           port: 8080 
-          # action: delete
+          action: delete
           domain: gha.dev.realsense.ca
           container-image: ${{ steps.image.outputs.tag }}
           public-path: samples/app/public/
