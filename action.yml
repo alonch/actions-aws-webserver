@@ -84,6 +84,7 @@ runs:
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
 
     - name: upload files
+      if: ${{ inputs.action!='delete' }}
       shell: bash
       run: |
         BUCKET=$(aws cloudformation \
