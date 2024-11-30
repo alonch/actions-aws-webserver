@@ -1,12 +1,13 @@
 name: demo
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 jobs:
   deploy:
     permissions: 
       id-token: write
+    environment:
+      name: PR-${{ github.event.number }}
+      url: https://pr-${{ github.event.number }}.dev.realsense.ca
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
@@ -25,7 +26,7 @@ jobs:
         with: 
           name: webserver
           port: 8080 
-          action: delete
-          domain: gha.dev.realsense.ca
+          action: ${{ github.event.action == 'closed' && 'delete' || 'deploy' }}
+          domain: pr-${{ github.event.number }}.dev.realsense.ca
           container-image: ${{ steps.image.outputs.tag }}
           public-path: samples/app/public/
