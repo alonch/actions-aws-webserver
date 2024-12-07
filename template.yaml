@@ -295,7 +295,7 @@ Resources:
           Required: true
   UserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
-    DependsOn: Route53RecordSetGroup
+    DependsOn: StaticSiteDNSRecord
     Properties:
       UserPoolId: !Ref UserPool
       Domain: !Sub "auth.${DomainName}"
