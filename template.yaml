@@ -213,7 +213,6 @@ Resources:
       - !Sub "*.${DomainName}"
   ListenerHTTPS:
     Type: AWS::ElasticLoadBalancingV2::Listener
-    DependsOn: UserPoolDNS
     Properties:
       DefaultActions:
         - Type: authenticate-cognito
