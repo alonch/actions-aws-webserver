@@ -16,6 +16,17 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.ROLE_ARN }}
           role-session-name: ${{ github.actor }}
+      - uses: alonch/actions-aws-backend-setup@main
+        with: 
+          instance: webserver
+      - uses: alonch/actions-aws-website@main
+        with:
+          domain: gha-webserver.dev.realsense.ca
+          content-path: sample
+      - uses: alonch/actions-aws-auth@main
+        with: 
+          name: webserver
+          domain: gha-webserver.dev.realsense.ca
       - uses: alonch/actions-aws-image@main
         id: image
         with: 
@@ -26,6 +37,6 @@ jobs:
           name: webserver
           port: 8080 
           action: delete
-          domain: gha.dev.realsense.ca
+          domain: gha-webserver.dev.realsense.ca
           container-image: ${{ steps.image.outputs.tag }}
           public-path: samples/app/public/

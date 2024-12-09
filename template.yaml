@@ -42,6 +42,11 @@ Parameters:
   AutoScalingTargetValue:
     Type: Number
     Default: 90
+  UserPoolArn:
+    Type: String
+  UserPoolClientId:
+    Type: String
+
 Resources:
   Cluster:
     Type: AWS::ECS::Cluster
@@ -214,8 +219,8 @@ Resources:
         - Type: authenticate-cognito
           Order: 1
           AuthenticateCognitoConfig:
-            UserPoolArn: !Sub ${UserPool.Arn}
-            UserPoolClientId: !Sub ${UserPoolClient.ClientId}
+            UserPoolArn: !Sub ${UserPoolArn}
+            UserPoolClientId: !Sub ${UserPoolClientId}
             UserPoolDomain: !Sub auth.${DomainName}
             SessionCookieName: AWSELBAuthSessionCookie
             OnUnauthenticatedRequest: authenticate
@@ -277,6 +282,7 @@ Resources:
         ScaleInCooldown: 10
         ScaleOutCooldown: 10
         # Keep things at or lower than 50% CPU utilization, for example
+<<<<<<< Updated upstream
         TargetValue: !Ref AutoScalingTargetValue
 
   UserPool:
@@ -476,3 +482,6 @@ Outputs:
   Bucket:
     Description: S3 Bucket
     Value: !Ref S3BucketRoot
+=======
+        TargetValue: !Ref AutoScalingTargetValue
+>>>>>>> Stashed changes
