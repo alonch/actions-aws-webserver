@@ -88,16 +88,3 @@ runs:
         UserPoolArn="${{ env.UserPoolArn }}" \
         UserPoolClientId="${{ env.UserPoolClientId }}" \
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
-
-    - name: upload files
-      if: ${{ inputs.action!='delete' }}
-      shell: bash
-      run: |
-        BUCKET=$(aws cloudformation \
-          --region us-east-1 describe-stacks \
-          --stack-name ${{ inputs.name }}-${{ github.repository_id }} \
-          --query 'Stacks[0].Outputs[?OutputKey==`Bucket`].OutputValue' \
-          --output text)
-        aws s3 sync ${{ inputs.public-path }} s3://${BUCKET} --delete
-      
-        
