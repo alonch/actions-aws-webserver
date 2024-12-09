@@ -86,7 +86,7 @@ runs:
         AutoScalingTargetValue="90" \
         DomainName="${{ inputs.domain }}" \
         UserPoolArn="${{ env.UserPoolId }}" \
-        UserPoolClientId= "${{ env.UserPoolClientId }}" \
+        UserPoolClientId="${{ env.UserPoolClientId }}" \
         DomainHostedZoneId="Z0674300MVO8RX9JHZFL"
 
     - name: upload files
