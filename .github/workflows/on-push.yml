@@ -22,7 +22,7 @@ jobs:
       - uses: alonch/actions-aws-website@main
         with:
           domain: gha-webserver.dev.realsense.ca
-          content-path: sample
+          content-path: samples/app/public/
       - uses: alonch/actions-aws-auth@main
         with: 
           name: webserver
@@ -39,4 +39,4 @@ jobs:
           action: delete
           domain: gha-webserver.dev.realsense.ca
           container-image: ${{ steps.image.outputs.tag }}
-          public-path: samples/app/public/
+          
