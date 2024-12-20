@@ -42,10 +42,10 @@ Parameters:
   AutoScalingTargetValue:
     Type: Number
     Default: 90
-  UserPoolArn:
-    Type: String
-  UserPoolClientId:
-    Type: String
+  # UserPoolArn:
+  #   Type: String
+  # UserPoolClientId:
+  #   Type: String
 
 Resources:
   Cluster:
@@ -218,14 +218,14 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
-        - Type: authenticate-cognito
-          Order: 1
-          AuthenticateCognitoConfig:
-            UserPoolArn: !Sub ${UserPoolArn}
-            UserPoolClientId: !Sub ${UserPoolClientId}
-            UserPoolDomain: !Sub auth.${DomainName}
-            SessionCookieName: AWSELBAuthSessionCookie
-            OnUnauthenticatedRequest: authenticate
+        # - Type: authenticate-cognito
+        #   Order: 1
+        #   AuthenticateCognitoConfig:
+        #     UserPoolArn: !Sub ${UserPoolArn}
+        #     UserPoolClientId: !Sub ${UserPoolClientId}
+        #     UserPoolDomain: !Sub auth.${DomainName}
+        #     SessionCookieName: AWSELBAuthSessionCookie
+        #     OnUnauthenticatedRequest: authenticate
         - TargetGroupArn: !Ref TargetGroup
           Order: 2
           Type: forward
