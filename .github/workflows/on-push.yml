@@ -27,16 +27,16 @@ jobs:
         with: 
           name: webserver
           domain: gha-webserver.dev.realsense.ca
-      - uses: alonch/actions-aws-image@main
-        id: image
-        with: 
-          name: webserver
-          docker-path: samples/app/
+      # - uses: alonch/actions-aws-image@main
+      #   id: image
+      #   with: 
+      #     name: webserver
+      #     docker-path: samples/app/
       - uses: alonch/actions-aws-webserver@main
         with: 
           name: webserver
-          port: 8080 
+          port: 8283
           # action: delete
           domain: gha-webserver.dev.realsense.ca
-          container-image: ${{ steps.image.outputs.tag }}
+          container-image: letta/letta:latest
           
