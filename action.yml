@@ -46,6 +46,9 @@ inputs:
     description: "User pool arn"
   user-pool-client:
     description: "User pool client"
+  health-path:
+    description: path to health check
+    default: "/"
 outputs: 
   url: 
     description: "Public accessiable URL"
@@ -80,7 +83,7 @@ runs:
         Image="${{ inputs.container-image }}" \
         ContainerPort=${{ inputs.port }} \
         LoadBalancerPort="443" \
-        HealthCheckPath="/" \
+        HealthCheckPath="${{ inputs.health-path }}" \
         MinContainers="1" \
         MaxContainers="3" \
         AutoScalingTargetValue="90" \
