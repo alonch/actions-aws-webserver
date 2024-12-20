@@ -19,7 +19,7 @@ jobs:
       - uses: alonch/actions-aws-backend-setup@main
         with: 
           instance: webserver
-      - uses: alonch/actions-aws-website@main
+      - uses: alonch/actions-aws-website@13496d41c69dbd53ddaa28e5a9e4ed05674bb05b
         with:
           domain: gha-webserver.dev.realsense.ca
           content-path: samples/app/public/
