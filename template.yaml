@@ -173,7 +173,7 @@ Resources:
           Rollback: true
       DesiredCount: 1
       # This may need to be adjusted if the container takes a while to start up
-      HealthCheckGracePeriodSeconds: 30
+      HealthCheckGracePeriodSeconds: 120
       LaunchType: FARGATE
       CapacityProviderStrategy:
         - CapacityProvider: FARGATE_SPOT
@@ -194,7 +194,7 @@ Resources:
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      HealthCheckIntervalSeconds: 10
+      HealthCheckIntervalSeconds: 30
       # will look for a 200 status code by default unless specified otherwise
       HealthCheckPath: !Ref HealthCheckPath
       HealthCheckTimeoutSeconds: 5
