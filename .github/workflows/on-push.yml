@@ -36,7 +36,7 @@ jobs:
         with: 
           name: webserver
           port: 8283
-          # action: delete
+          action: delete
           domain: gha-webserver.dev.realsense.ca
           container-image: letta/letta:latest
           
